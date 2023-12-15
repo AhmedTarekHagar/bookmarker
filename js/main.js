@@ -1,6 +1,8 @@
 var bookmarkNameInput = document.getElementById('bookmarkName');
 var siteURLInput = document.getElementById('url');
 
+var searchInput = document.getElementById('searchInput');
+
 var globalIndex;
 
 var sitesList = [];
@@ -155,3 +157,67 @@ function viewSites() {
 }
 
 // #endregion
+
+// 
+
+function search(){
+    var searchValue = searchInput.value.toLowerCase();
+    var content = ``;
+
+    for (var i = 0; i < sitesList.length; i++) {
+        if(sitesList[i].siteName.toLowerCase().includes(searchValue)) {
+            content += `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${sitesList[i].siteName.replace(searchValue, `<span class="bg-dark text-light">${searchValue}</span>`)}</td>
+                        <td>
+                            <a href="https://${sitesList[i].siteURL}" target="_blank" class="btn btn-success"><i
+                                    class="fa-solid fa-eye pe-2"></i>Visit</a>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning update"><i
+                                    class="fa-solid fa-pen-to-square pe-2"></i>Update</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-danger delete" type="button" class="btn btn-danger"><i
+                                    class="fa-solid fa-trash-can pe-2"></i>Delete</button>
+                        </td>
+                    </tr>
+        `;
+        }
+    }
+
+    if (content == ``) {
+        content = `
+                    <tr>
+                        <td colspan="5" class="fw-semibold text-danger">No matches</td>
+                    </tr>
+        `;
+    }
+
+    document.getElementById('tableContent').innerHTML = content;
+
+    // add delete event listeners to buttons
+    var deleteButtons = document.querySelectorAll('.delete');
+
+    for (var j = 0; j < deleteButtons.length; j++) {
+        (function (index) {
+            deleteButtons[index].addEventListener('click', function () {
+                deleteSite(index);
+            });
+        })(j);
+    }
+
+    // add update event listeners to buttons
+    var updateButtons = document.querySelectorAll('.update');
+
+    for (var k = 0; k < updateButtons.length; k++) {
+        (function (index) {
+            updateButtons[index].addEventListener('click', function () {
+                updateSite(index);
+            });
+        })(k);
+    }
+}
+
+document.getElementById('searchInput').addEventListener('keyup', search);
