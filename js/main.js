@@ -169,7 +169,7 @@ function search(){
             content += `
                     <tr>
                         <td>${i + 1}</td>
-                        <td>${sitesList[i].siteName.replace(searchValue, `<span class="bg-dark text-light">${searchValue}</span>`)}</td>
+                        <td>${sitesList[i].siteName.toLowerCase().replace(searchValue, `<span class="bg-dark text-light">${searchValue}</span>`)}</td>
                         <td>
                             <a href="https://${sitesList[i].siteURL}" target="_blank" class="btn btn-success"><i
                                     class="fa-solid fa-eye pe-2"></i>Visit</a>
