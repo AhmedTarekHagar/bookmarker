@@ -32,16 +32,17 @@
         <!-- #region form -->
         <section class="py-3 form-section">
             <h2 class="fs-3 text-success text-center h2FontFamily">
-                <i class="fa-solid fa-bookmark" style="color: #D1512D;"></i>
+                <i class="fa-solid fa-bookmark text-danger-emphasis"></i>
                 Bookmark your favorite sites
-                <i class="fa-solid fa-bookmark" style="color: #D1512D;"></i>
+                <i class="fa-solid fa-bookmark text-danger-emphasis"></i>
             </h2>
 
             <form class="p-3">
                 <div class="py-3">
-                    <label class="form-label fw-semibold" for="name"><i class="fa-solid fa-book-bookmark pe-2"></i>Site
+                    <label class="form-label fw-semibold" for="bookmarkName"><i
+                            class="fa-solid fa-book-bookmark pe-2"></i>Site
                         Name</label>
-                    <input class="form-control focus-ring focus-ring-warning" type="text" id="name"
+                    <input class="form-control focus-ring focus-ring-warning" type="text" id="bookmarkName"
                         placeholder="Bookmark Name">
                 </div>
 
@@ -53,8 +54,9 @@
                 </div>
 
                 <div class="py-3 d-flex justify-content-around">
-                    <button class="btn btn-danger px-5" type="button">Submit</button>
+                    <button class="btn btn-danger px-5" type="button" id="submitSite">Submit</button>
                 </div>
+
             </form>
         </section>
         <!-- #endregion -->
@@ -72,33 +74,20 @@
                         <th>Delete</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Movies</td>
-                        <td>
-                            <a href="" class="btn btn-success"><i
-                                    class="fa-solid fa-eye pe-2"></i>Visit</a>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-warning"><i
-                                    class="fa-solid fa-pen-to-square pe-2"></i>Update</button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger"><i
-                                    class="fa-solid fa-trash-can pe-2"></i>Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" class="fw-semibold text-danger">No Saved Sites</td>
-                    </tr>
+                <tbody id="tableContent">
+
                 </tbody>
             </table>
+
+            <div class="d-flex justify-content-center">
+                <button type="button" id="clearAllSites" class="btn btn-danger"><i class="fa-solid fa-trash-can pe-2"></i>Clear
+                    All</button>
+            </div>
         </section>
 
         <!-- #endregion -->
 
-        
+
     </div>
 
     <!-- #region footer -->

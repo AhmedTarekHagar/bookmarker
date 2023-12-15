@@ -1,0 +1,157 @@
+var bookmarkNameInput = document.getElementById('bookmarkName');
+var siteURLInput = document.getElementById('url');
+
+var globalIndex;
+
+var sitesList = [];
+
+viewSites();
+
+if (localStorage.getItem('sites') != null) {
+    sitesList = JSON.parse(localStorage.getItem('sites'));
+    viewSites();
+}
+
+function addToLocalStorage() {
+    localStorage.setItem('sites', JSON.stringify(sitesList));
+}
+
+// #region add and confirm update function
+
+function addSite() {
+    var site = {
+        siteName: bookmarkNameInput.value,
+        siteURL: siteURLInput.value
+    }
+
+    if (document.getElementById('submitSite').innerHTML == 'Submit') {
+        sitesList.push(site);
+    } else if (document.getElementById('submitSite').innerHTML == 'Confirm Changes') {
+        sitesList.splice(globalIndex, 1, site);
+
+        document.getElementById('submitSite').innerHTML = 'Submit';
+        document.getElementById('submitSite').classList.add('btn-danger');
+        document.getElementById('submitSite').classList.remove('btn-outline-primary');
+    }
+
+    addToLocalStorage();
+    clearForm();
+    viewSites();
+}
+
+// linking button and action with click eventlistener
+
+var submitButton = document.getElementById('submitSite');
+
+submitButton.addEventListener('click', addSite);
+
+// #endregion
+
+// #region delete function
+
+function deleteSite(siteIndex) {
+    sitesList.splice(siteIndex, 1);
+    addToLocalStorage();
+    viewSites();
+}
+
+// #endregion
+
+// #region update function
+
+function updateSite(siteIndex) {
+    bookmarkNameInput.value = sitesList[siteIndex].siteName;
+    siteURLInput.value = sitesList[siteIndex].siteURL;
+
+    globalIndex = siteIndex;
+
+    document.getElementById('submitSite').innerHTML = 'Confirm Changes';
+    document.getElementById('submitSite').classList.remove('btn-danger');
+    document.getElementById('submitSite').classList.add('btn-outline-primary');
+
+}
+// #endregion
+
+// #region clear form function
+
+function clearForm() {
+    bookmarkNameInput.value = ``;
+    siteURLInput.value = ``;
+}
+
+// #endregion
+
+// #region clear all
+
+function clearAll(){
+    localStorage.removeItem('sites');
+    sitesList = [];
+    viewSites();
+}
+
+// link clear all function to its button
+document.getElementById('clearAllSites').addEventListener('click', clearAll);
+
+
+// #endregion
+
+// #region view sites list and linking delete and update buttons to their functions
+
+function viewSites() {
+    var content = ``;
+
+    for (var i = 0; i < sitesList.length; i++) {
+        content += `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${sitesList[i].siteName}</td>
+                        <td>
+                            <a href="https://${sitesList[i].siteURL}" target="_blank" class="btn btn-success"><i
+                                    class="fa-solid fa-eye pe-2"></i>Visit</a>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning update"><i
+                                    class="fa-solid fa-pen-to-square pe-2"></i>Update</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-danger delete" type="button" class="btn btn-danger"><i
+                                    class="fa-solid fa-trash-can pe-2"></i>Delete</button>
+                        </td>
+                    </tr>
+        `;
+    }
+
+    if (content == ``) {
+        content = `
+                    <tr>
+                        <td colspan="5" class="fw-semibold text-danger">No Saved Sites</td>
+                    </tr>
+        `;
+    }
+
+    document.getElementById('tableContent').innerHTML = content;
+
+    // add delete event listeners to buttons
+    var deleteButtons = document.querySelectorAll('.delete');
+
+    for (var j = 0; j < deleteButtons.length; j++) {
+        (function (index) {
+            deleteButtons[index].addEventListener('click', function () {
+                deleteSite(index);
+            });
+        })(j);
+    }
+
+    // add update event listeners to buttons
+    var updateButtons = document.querySelectorAll('.update');
+
+    for (var k = 0; k < updateButtons.length; k++) {
+        (function (index) {
+            updateButtons[index].addEventListener('click', function () {
+                updateSite(index);
+            });
+        })(k);
+    }
+}
+
+// #endregion
