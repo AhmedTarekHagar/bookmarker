@@ -1,21 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <title>Bookmarker</title>
+    <link rel="shortcut icon" href="images/bookmark.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption&family=Pacifico&family=Righteous&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- #region header -->
+        <header class="py-5">
+            <h1 class="text-center">
+                <span class="h1FontFamily position-relative display-5">Bookmarker</span>
+            </h1>
+        </header>
+        <!-- #endregion -->
+
+        <!-- #region form -->
+        <section class="py-3 form-section">
+            <h2 class="fs-3 text-success text-center h2FontFamily">
+                <i class="fa-solid fa-bookmark" style="color: #D1512D;"></i>
+                Bookmark your favorite sites
+                <i class="fa-solid fa-bookmark" style="color: #D1512D;"></i>
+            </h2>
+
+            <form class="p-3">
+                <div class="py-3">
+                    <label class="form-label fw-semibold" for="name"><i class="fa-solid fa-book-bookmark pe-2"></i>Site
+                        Name</label>
+                    <input class="form-control focus-ring focus-ring-warning" type="text" id="name"
+                        placeholder="Bookmark Name">
+                </div>
+
+                <div class="py-3">
+                    <label class="form-label fw-semibold" for="url"><i class="fa-solid fa-link pe-2"></i>Site
+                        URL</label>
+                    <input class="form-control focus-ring focus-ring-warning" type="text" id="url"
+                        placeholder="Website URL">
+                </div>
+
+                <div class="py-3 d-flex justify-content-around">
+                    <button class="btn btn-danger px-5" type="button">Submit</button>
+                </div>
+            </form>
+        </section>
+        <!-- #endregion -->
+
+        <!-- #region table -->
+
+        <section class="py-4">
+            <table class="table table-light text-center align-middle">
+                <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th>Website Name</th>
+                        <th>Visit</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Movies</td>
+                        <td>
+                            <a href="" class="btn btn-success"><i
+                                    class="fa-solid fa-eye pe-2"></i>Visit</a>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning"><i
+                                    class="fa-solid fa-pen-to-square pe-2"></i>Update</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger"><i
+                                    class="fa-solid fa-trash-can pe-2"></i>Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="fw-semibold text-danger">No Saved Sites</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- #endregion -->
+
+        
+    </div>
+
+    <!-- #region footer -->
+
+    <footer class="bg-dark py-2">
+        <p class="text-light text-center fs-6">Webites Bookmarker<i class="fa-solid fa-bookmark ps-3"></i></p>
+    </footer>
+
+    <!-- #endregion -->
 
     <script src="js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
-    
-    
-
     <script src="js/main.js"></script>
 </body>
+
 </html>

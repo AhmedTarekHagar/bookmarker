@@ -1,0 +1,55 @@
+/* #region global */
+
+* {
+    font-family: 'PT Sans Caption', sans-serif;
+}
+
+.h1FontFamily {
+    font-family: 'Pacifico', cursive;
+}
+
+.h2FontFamily {
+    font-family: 'Righteous', sans-serif;
+}
+
+body {
+    background-color: #F7ECDE;
+}
+
+/* #endregion */
+
+/* #region header */
+
+h1 span::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 35%;
+    z-index: -1;
+    background-color: #FEC260;
+    transition:  height .5s;
+}
+
+h1 span:hover::after {
+    height: 70%;
+}
+
+header {
+    border-bottom: 2px dotted #000;
+}
+
+/* #endregion */
+
+/* #region form */
+
+.form-section {
+    border-bottom: 2px dotted #000;
+}
+
+/* #endregion */
+
+/* #region */
+
+/* #endregion */
