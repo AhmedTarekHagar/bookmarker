@@ -37,7 +37,7 @@
                 <i class="fa-solid fa-bookmark text-danger-emphasis"></i>
             </h2>
 
-            <form class="p-3">
+            <form class="p-3" novalidate>
                 <div class="py-3">
                     <label class="form-label fw-semibold" for="bookmarkName"><i
                             class="fa-solid fa-book-bookmark pe-2"></i>Site
@@ -51,11 +51,16 @@
                         URL</label>
                     <input class="form-control focus-ring focus-ring-warning" type="text" id="url"
                         placeholder="Website URL">
+                    <div class="alert alert-danger my-3 d-none" id="validationError" role="alert">
+                        Invalid URL
+                    </div>
                 </div>
 
                 <div class="py-3 d-flex justify-content-around">
                     <button class="btn btn-danger px-5" type="button" id="submitSite">Submit</button>
                 </div>
+
+
 
             </form>
         </section>
@@ -64,7 +69,8 @@
         <!-- #region table -->
 
         <section class="py-4">
-            <input type="text" id="searchInput" placeholder="Search" class="form-control mb-3 w-50 mx-auto focus-ring focus-ring-warning">
+            <input type="text" id="searchInput" placeholder="Search"
+                class="form-control mb-3 w-50 mx-auto focus-ring focus-ring-warning">
             <table class="table table-light text-center align-middle">
                 <thead>
                     <tr>
@@ -81,7 +87,8 @@
             </table>
 
             <div class="d-flex justify-content-center">
-                <button type="button" id="clearAllSites" class="btn btn-danger"><i class="fa-solid fa-trash-can pe-2"></i>Clear
+                <button type="button" id="clearAllSites" class="btn btn-danger"><i
+                        class="fa-solid fa-trash-can pe-2"></i>Clear
                     All</button>
             </div>
         </section>

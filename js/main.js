@@ -26,6 +26,14 @@ function addSite() {
         siteURL: siteURLInput.value
     }
 
+    if (!validateURL(site.siteURL)) {
+        document.getElementById('validationError').classList.remove('d-none');
+        setTimeout(() => {
+            document.getElementById('validationError').classList.add('d-none');
+        }, 1000);
+        return;
+    }
+
     if (document.getElementById('submitSite').innerHTML == 'Submit') {
         sitesList.push(site);
     } else if (document.getElementById('submitSite').innerHTML == 'Confirm Changes') {
@@ -85,7 +93,7 @@ function clearForm() {
 
 // #region clear all
 
-function clearAll(){
+function clearAll() {
     localStorage.removeItem('sites');
     sitesList = [];
     viewSites();
@@ -112,11 +120,11 @@ function viewSites() {
                                     class="fa-solid fa-eye pe-2"></i>Visit</a>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-warning update"><i
+                            <button type="button" data-update-index = "${i}" class="btn btn-warning update"><i
                                     class="fa-solid fa-pen-to-square pe-2"></i>Update</button>
                         </td>
                         <td>
-                            <button class="btn btn-outline-danger delete" type="button" class="btn btn-danger"><i
+                            <button class="btn btn-outline-danger delete" data-delete-index = "${i}" type="button" class="btn btn-danger"><i
                                     class="fa-solid fa-trash-can pe-2"></i>Delete</button>
                         </td>
                     </tr>
@@ -133,39 +141,19 @@ function viewSites() {
 
     document.getElementById('tableContent').innerHTML = content;
 
-    // add delete event listeners to buttons
-    var deleteButtons = document.querySelectorAll('.delete');
-
-    for (var j = 0; j < deleteButtons.length; j++) {
-        (function (index) {
-            deleteButtons[index].addEventListener('click', function () {
-                deleteSite(index);
-            });
-        })(j);
-    }
-
-    // add update event listeners to buttons
-    var updateButtons = document.querySelectorAll('.update');
-
-    for (var k = 0; k < updateButtons.length; k++) {
-        (function (index) {
-            updateButtons[index].addEventListener('click', function () {
-                updateSite(index);
-            });
-        })(k);
-    }
+    addFunctionsToDeleteAndUpdateButtons();
 }
 
 // #endregion
 
-// 
+// #region search function and event listener
 
-function search(){
+function search() {
     var searchValue = searchInput.value.toLowerCase();
     var content = ``;
 
     for (var i = 0; i < sitesList.length; i++) {
-        if(sitesList[i].siteName.toLowerCase().includes(searchValue)) {
+        if (sitesList[i].siteName.toLowerCase().includes(searchValue)) {
             content += `
                     <tr>
                         <td>${i + 1}</td>
@@ -175,11 +163,11 @@ function search(){
                                     class="fa-solid fa-eye pe-2"></i>Visit</a>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-warning update"><i
+                            <button data-update-index = "${i}" type="button" class="btn btn-warning update"><i
                                     class="fa-solid fa-pen-to-square pe-2"></i>Update</button>
                         </td>
                         <td>
-                            <button class="btn btn-outline-danger delete" type="button" class="btn btn-danger"><i
+                            <button data-delete-index = "${i}" class="btn btn-outline-danger delete" type="button" class="btn btn-danger"><i
                                     class="fa-solid fa-trash-can pe-2"></i>Delete</button>
                         </td>
                     </tr>
@@ -197,13 +185,21 @@ function search(){
 
     document.getElementById('tableContent').innerHTML = content;
 
+    addFunctionsToDeleteAndUpdateButtons();
+}
+
+document.getElementById('searchInput').addEventListener('keyup', search);
+
+// #endregion
+
+function addFunctionsToDeleteAndUpdateButtons() {
     // add delete event listeners to buttons
     var deleteButtons = document.querySelectorAll('.delete');
 
     for (var j = 0; j < deleteButtons.length; j++) {
         (function (index) {
             deleteButtons[index].addEventListener('click', function () {
-                deleteSite(index);
+                deleteSite(deleteButtons[index].getAttribute(`data-delete-index`));
             });
         })(j);
     }
@@ -214,10 +210,16 @@ function search(){
     for (var k = 0; k < updateButtons.length; k++) {
         (function (index) {
             updateButtons[index].addEventListener('click', function () {
-                updateSite(index);
+                updateSite(updateButtons[index].getAttribute(`data-update-index`));
             });
         })(k);
     }
 }
 
-document.getElementById('searchInput').addEventListener('keyup', search);
+function validateURL(url) {
+    if (/^(https?:\/\/)?(w{3}\.)?\w+\.\w{2,}\/?(:\d{2,5})?(\/\w+)*$/.test(url)) {
+        return true;
+    } else {
+        return false;
+    }
+}
